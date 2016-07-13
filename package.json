@@ -1,0 +1,17 @@
+{
+  "name": "mssql-simple",
+  "version": "0.0.1",
+  "description": "simple mssql interface",
+  "main": "./js/index.js",
+  "typings": "./js/index.d.ts",
+  "scripts": {
+  },
+  "keywords": [
+    "mssql"
+  ],
+  "author": "Wen Chang",
+  "license": "MIT",
+  "dependencies": {
+    "mssql": "^3.3.0"
+  }
+}
