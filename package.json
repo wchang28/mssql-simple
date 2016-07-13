@@ -4,6 +4,10 @@
   "description": "simple mssql interface",
   "main": "./js/index.js",
   "typings": "./js/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wchang28/mssql-simple"
+  },
   "scripts": {
   },
   "keywords": [
