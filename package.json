@@ -1,6 +1,6 @@
 {
   "name": "mssql-simple",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "simple mssql interface",
   "main": "./js/index.js",
   "typings": "./js/index.d.ts",
@@ -8,14 +8,14 @@
     "type": "git",
     "url": "https://github.com/wchang28/mssql-simple"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [
     "mssql"
   ],
   "author": "Wen Chang",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.14.0",
     "mssql": "^3.3.0"
   }
 }

@@ -5,18 +5,24 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var sql = require('mssql');
 var events = require('events');
+var _ = require('lodash');
 // will emit the following events
 // 1. connected
 // 2. error
 // 3. disconnected
 var SimpleMSSQL = (function (_super) {
     __extends(SimpleMSSQL, _super);
-    function SimpleMSSQL(__sqlConfig, __reconnectIntervalMS) {
+    function SimpleMSSQL(__sqlConfig, options) {
         _super.call(this);
         this.__sqlConfig = __sqlConfig;
-        this.__reconnectIntervalMS = __reconnectIntervalMS;
         this.__connection = null;
+        this.__options = _.assignIn({}, SimpleMSSQL.defaultOptions, (options ? options : {}));
     }
+    Object.defineProperty(SimpleMSSQL.prototype, "options", {
+        get: function () { return this.__options; },
+        enumerable: true,
+        configurable: true
+    });
     SimpleMSSQL.prototype.onConnectionError = function (err) {
         var _this = this;
         try {
@@ -24,9 +30,11 @@ var SimpleMSSQL = (function (_super) {
         }
         catch (e) { }
         this.__connection = null;
-        setTimeout(function () {
-            _this.connect();
-        }, this.__reconnectIntervalMS);
+        if (this.options && typeof this.options.reconnectIntervalMS === 'number' && this.options.reconnectIntervalMS > 0) {
+            setTimeout(function () {
+                _this.connect();
+            }, this.options.reconnectIntervalMS);
+        }
         this.emit('error', err);
     };
     SimpleMSSQL.prototype.connect = function () {
@@ -78,7 +86,8 @@ var SimpleMSSQL = (function (_super) {
         }
         request.execute(storedProc, done);
     };
-    SimpleMSSQL.NOT_CONNECTED = 'not connected to the database';
+    SimpleMSSQL.defaultOptions = { reconnectIntervalMS: 3000 };
+    SimpleMSSQL.NOT_CONNECTED = { error: 'db-not-connected', error_description: 'not connected to the database' };
     return SimpleMSSQL;
 }(events.EventEmitter));
 exports.SimpleMSSQL = SimpleMSSQL;

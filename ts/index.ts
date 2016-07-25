@@ -1,8 +1,13 @@
 import * as sql from 'mssql';
 import * as events from 'events';
+import * as _ from 'lodash';
 
 export interface QueryCallback {
     (err: any, recordsets: any): void;
+}
+
+export interface Options {
+    reconnectIntervalMS?: number
 }
 
 // will emit the following events
@@ -11,16 +16,22 @@ export interface QueryCallback {
 // 3. disconnected
 export class SimpleMSSQL extends events.EventEmitter {
     private __connection: sql.Connection = null;
-    private static NOT_CONNECTED: string = 'not connected to the database';
-    constructor(private __sqlConfig: sql.Configuration, private __reconnectIntervalMS: number) {
+    private __options: Options;
+    private static defaultOptions: Options = {reconnectIntervalMS: 3000};
+    private static NOT_CONNECTED  = {error: 'db-not-connected', error_description: 'not connected to the database'};
+    constructor(private __sqlConfig: sql.Configuration, options: Options) {
         super();
+        this.__options = _.assignIn({}, SimpleMSSQL.defaultOptions, (options ? options: {}));
     }
+    get options(): Options {return this.__options;}
     private onConnectionError(err) : void {
         try {this.__connection.close();} catch(e) {}
         this.__connection = null;
-        setTimeout(() => {
-            this.connect();
-        }, this.__reconnectIntervalMS);
+        if (this.options && typeof this.options.reconnectIntervalMS === 'number' && this.options.reconnectIntervalMS > 0) {
+            setTimeout(() => {
+                this.connect();
+            }, this.options.reconnectIntervalMS);
+        }
         this.emit('error', err);
     }
     connect() : void {

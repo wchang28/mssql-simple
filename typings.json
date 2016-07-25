@@ -1,6 +1,7 @@
 {
   "name": "mssql-simple",
   "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160701205107",
     "mssql": "registry:npm/mssql#3.3.0+20160526152843"
   },
   "globalDependencies": {
