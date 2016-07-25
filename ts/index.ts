@@ -19,7 +19,7 @@ export class SimpleMSSQL extends events.EventEmitter {
     private __options: Options;
     private static defaultOptions: Options = {reconnectIntervalMS: 3000};
     private static NOT_CONNECTED  = {error: 'db-not-connected', error_description: 'not connected to the database'};
-    constructor(private __sqlConfig: sql.Configuration, options: Options) {
+    constructor(private __sqlConfig: sql.Configuration, options?: Options) {
         super();
         this.__options = _.assignIn({}, SimpleMSSQL.defaultOptions, (options ? options: {}));
     }

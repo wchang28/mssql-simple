@@ -12,7 +12,7 @@ export declare class SimpleMSSQL extends events.EventEmitter {
     private __options;
     private static defaultOptions;
     private static NOT_CONNECTED;
-    constructor(__sqlConfig: sql.Configuration, options: Options);
+    constructor(__sqlConfig: sql.Configuration, options?: Options);
     options: Options;
     private onConnectionError(err);
     connect(): void;
