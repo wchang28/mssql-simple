@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import * as sql from 'mssql';
 import * as events from 'events';
 export interface QueryCallback {
@@ -13,7 +14,7 @@ export declare class SimpleMSSQL extends events.EventEmitter {
     private static defaultOptions;
     private static NOT_CONNECTED;
     constructor(__sqlConfig: sql.Configuration, options?: Options);
-    options: Options;
+    readonly options: Options;
     private onConnectionError(err);
     connect(): void;
     disconnect(): void;
