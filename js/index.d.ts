@@ -13,7 +13,7 @@ export declare class SimpleMSSQL extends events.EventEmitter {
     private __options;
     private static defaultOptions;
     private static NOT_CONNECTED;
-    constructor(__sqlConfig: sql.Configuration, options?: Options);
+    constructor(__sqlConfig: sql.config, options?: Options);
     readonly options: Options;
     private onConnectionError(err);
     connect(): void;
@@ -21,4 +21,4 @@ export declare class SimpleMSSQL extends events.EventEmitter {
     query(sqlString: string, params: any, done: QueryCallback): void;
     execute(storedProc: string, params: any, done: QueryCallback): void;
 }
-export { Configuration } from 'mssql';
+export { config as Configuration } from 'mssql';

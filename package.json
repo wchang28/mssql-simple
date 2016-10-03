@@ -1,6 +1,6 @@
 {
   "name": "mssql-simple",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple mssql Interface",
   "main": "./js/index.js",
   "typings": "./js/index.d.ts",
@@ -15,7 +15,9 @@
   "author": "Wen Chang",
   "license": "MIT",
   "dependencies": {
+    "@types/es6-promise": "0.0.32",
     "@types/lodash": "^4.14.36",
+    "@types/mssql": "^3.1.29",
     "@types/node": "^6.0.41",
     "lodash": "^4.14.0",
     "mssql": "^3.3.0"
