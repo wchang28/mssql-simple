@@ -1,12 +1,18 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var sql = require('mssql');
-var events = require('events');
-var _ = require('lodash');
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var sql = require("mssql");
+var events = require("events");
+var _ = require("lodash");
 // will emit the following events
 // 1. connected
 // 2. error
@@ -14,10 +20,11 @@ var _ = require('lodash');
 var SimpleMSSQL = (function (_super) {
     __extends(SimpleMSSQL, _super);
     function SimpleMSSQL(__sqlConfig, options) {
-        _super.call(this);
-        this.__sqlConfig = __sqlConfig;
-        this.__connection = null;
-        this.__options = _.assignIn({}, SimpleMSSQL.defaultOptions, (options ? options : {}));
+        var _this = _super.call(this) || this;
+        _this.__sqlConfig = __sqlConfig;
+        _this.__connection = null;
+        _this.__options = _.assignIn({}, SimpleMSSQL.defaultOptions, (options ? options : {}));
+        return _this;
     }
     Object.defineProperty(SimpleMSSQL.prototype, "options", {
         get: function () { return this.__options; },
@@ -87,8 +94,8 @@ var SimpleMSSQL = (function (_super) {
         }
         request.execute(storedProc, done);
     };
-    SimpleMSSQL.defaultOptions = { reconnectIntervalMS: 3000 };
-    SimpleMSSQL.NOT_CONNECTED = { error: 'db-not-connected', error_description: 'not connected to the database' };
     return SimpleMSSQL;
 }(events.EventEmitter));
+SimpleMSSQL.defaultOptions = { reconnectIntervalMS: 3000 };
+SimpleMSSQL.NOT_CONNECTED = { error: 'db-not-connected', error_description: 'not connected to the database' };
 exports.SimpleMSSQL = SimpleMSSQL;
