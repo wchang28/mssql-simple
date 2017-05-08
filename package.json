@@ -6,7 +6,7 @@
   "typings": "./js/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wchang28/mssql-simple"
+    "url": "https://github.com/wchang28/mssql-simple.git"
   },
   "scripts": {},
   "keywords": [
