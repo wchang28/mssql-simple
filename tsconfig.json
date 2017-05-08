@@ -8,10 +8,7 @@
       "outDir": "./js",
       "watch": true,
       "lib": [
-        "es2017",
-        "dom",
-        "dom.iterable",
-        "scripthost"
+        "es2017"
       ]
   },
   "files": [
